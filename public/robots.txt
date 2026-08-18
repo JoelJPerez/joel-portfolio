@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://joeljperez.vercel.app/sitemap-index.xml

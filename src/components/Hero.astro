@@ -1,0 +1,72 @@
+---
+import { useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section id="top" class="relative overflow-hidden">
+  <!-- subtle engineering grid backdrop -->
+  <div
+    class="pointer-events-none absolute inset-0 [background-image:linear-gradient(to_right,var(--color-line)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-line)_1px,transparent_1px)] [background-size:56px_56px] opacity-40 dark:[background-image:linear-gradient(to_right,var(--color-line-dark)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-line-dark)_1px,transparent_1px)]"
+    aria-hidden="true"
+  >
+  </div>
+  <div
+    class="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-paper/60 to-paper dark:via-paper-dark/60 dark:to-paper-dark"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div class="relative mx-auto max-w-5xl px-5 pb-20 pt-16 sm:pb-28 sm:pt-24">
+    <p class="mb-5 font-mono text-xs font-medium uppercase tracking-[0.2em] text-accent dark:text-accent-dark">
+      {t('hero.role')}
+    </p>
+
+    <h1 class="font-display max-w-3xl text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-6xl">
+      {t('hero.headline')}
+    </h1>
+
+    <p class="mt-6 max-w-2xl text-base leading-relaxed text-muted sm:text-lg dark:text-muted-dark">
+      {t('hero.intro')}
+    </p>
+
+    <div class="mt-9 flex flex-wrap items-center gap-3">
+      <a
+        href="#projects"
+        class="rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90 dark:bg-accent-dark dark:text-paper-dark"
+      >
+        {t('hero.viewProjects')}
+      </a>
+      <a
+        href="/cv/Joel_Perez_CV.pdf"
+        download
+        class="rounded-lg border border-line bg-card px-5 py-2.5 text-sm font-semibold transition-colors hover:border-accent dark:border-line-dark dark:bg-card-dark dark:hover:border-accent-dark"
+      >
+        {t('hero.downloadCV')}
+      </a>
+      <div class="ml-1 flex items-center gap-4 font-mono text-sm">
+        <a
+          href="https://github.com/JoelJPerez"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-muted underline-offset-4 transition-colors hover:text-accent hover:underline dark:text-muted-dark dark:hover:text-accent-dark"
+        >
+          GitHub
+        </a>
+        <a
+          href="https://www.linkedin.com/in/joel-perez-09159210a"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-muted underline-offset-4 transition-colors hover:text-accent hover:underline dark:text-muted-dark dark:hover:text-accent-dark"
+        >
+          LinkedIn
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

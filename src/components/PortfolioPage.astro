@@ -1,0 +1,67 @@
+---
+import { getCollection } from 'astro:content';
+import { useTranslations, type Lang } from '../i18n/ui';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from './Header.astro';
+import Hero from './Hero.astro';
+import FeaturedProject from './FeaturedProject.astro';
+import ProjectCard from './ProjectCard.astro';
+import Skills from './Skills.astro';
+import About from './About.astro';
+import Contact from './Contact.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const projects = (await getCollection('projects')).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+const featured = projects.filter((p) => p.data.featured);
+const others = projects.filter((p) => !p.data.featured);
+---
+
+<BaseLayout title={t('meta.title')} description={t('meta.description')} lang={lang}>
+  <Header lang={lang} />
+  <main>
+    <Hero lang={lang} />
+
+    <section id="projects" class="mx-auto max-w-5xl scroll-mt-20 px-5 py-16">
+      <p class="font-mono text-xs font-medium uppercase tracking-[0.2em] text-accent dark:text-accent-dark">
+        {t('projects.eyebrow')}
+      </p>
+      <h2 class="font-display mt-2 max-w-2xl text-3xl font-bold tracking-tight sm:text-4xl">
+        {t('projects.title')}
+      </h2>
+      <p class="mt-4 max-w-2xl text-muted dark:text-muted-dark">
+        {t('projects.intro')}
+      </p>
+
+      <div class="mt-10 space-y-6">
+        {featured.map((project) => <FeaturedProject project={project} lang={lang} />)}
+      </div>
+
+      {
+        others.length > 0 && (
+          <>
+            <h3 class="font-display mt-14 text-xl font-bold tracking-tight">
+              {t('projects.more')}
+            </h3>
+            <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {others.map((project) => (
+                <ProjectCard project={project} lang={lang} />
+              ))}
+            </div>
+          </>
+        )
+      }
+    </section>
+
+    <Skills lang={lang} />
+    <About lang={lang} />
+    <Contact lang={lang} />
+  </main>
+</BaseLayout>

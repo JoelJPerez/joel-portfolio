@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* Palette — cool technical base, .NET-violet accent */
+  --color-paper: #f6f7fb;
+  --color-paper-dark: #0c0e16;
+  --color-ink: #14161f;
+  --color-ink-dark: #e8eaf2;
+  --color-muted: #565b6e;
+  --color-muted-dark: #9aa0b5;
+  --color-card: #ffffff;
+  --color-card-dark: #141726;
+  --color-line: #e1e4ee;
+  --color-line-dark: #232739;
+  --color-accent: #5b33e0;
+  --color-accent-dark: #8b72ff;
+  --color-accent-soft: #ece7fc;
+  --color-accent-soft-dark: #221c45;
+
+  /* Typography */
+  --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  font-family: var(--font-body);
+}
+
+::selection {
+  background-color: var(--color-accent);
+  color: white;
+}
+
+/* Visible keyboard focus */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+.dark :focus-visible {
+  outline-color: var(--color-accent-dark);
+}

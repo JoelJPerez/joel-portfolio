@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+---
+
+<BaseLayout
+  title="404 — Page not found · Joel Perez"
+  description="This page does not exist."
+  lang="en"
+>
+  <Header lang="en" />
+  <main class="mx-auto flex max-w-5xl flex-col items-start px-5 py-28">
+    <p class="font-mono text-xs font-medium uppercase tracking-[0.2em] text-accent dark:text-accent-dark">
+      Error 404
+    </p>
+    <h1 class="font-display mt-2 text-4xl font-extrabold tracking-tight sm:text-5xl">
+      Page not found
+    </h1>
+    <p class="mt-4 max-w-md text-muted dark:text-muted-dark">
+      The page you're looking for doesn't exist. It may have been moved — or never shipped.
+    </p>
+    <a
+      href="/"
+      class="mt-8 rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90 dark:bg-accent-dark dark:text-paper-dark"
+    >
+      Back to home
+    </a>
+  </main>
+</BaseLayout>

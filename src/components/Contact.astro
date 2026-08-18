@@ -1,0 +1,64 @@
+---
+import { useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const year = new Date().getFullYear();
+---
+
+<section id="contact" class="mx-auto max-w-5xl scroll-mt-20 px-5 py-20">
+  <p class="font-mono text-xs font-medium uppercase tracking-[0.2em] text-accent dark:text-accent-dark">
+    {t('contact.eyebrow')}
+  </p>
+  <h2 class="font-display mt-2 max-w-2xl text-3xl font-bold tracking-tight sm:text-4xl">
+    {t('contact.title')}
+  </h2>
+  <p class="mt-4 max-w-xl text-muted dark:text-muted-dark">
+    {t('contact.intro')}
+  </p>
+
+  <div class="mt-8 flex flex-wrap gap-3">
+    <a
+      href="mailto:joelstif00@gmail.com"
+      class="rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90 dark:bg-accent-dark dark:text-paper-dark"
+    >
+      joelstif00@gmail.com
+    </a>
+    <a
+      href="https://www.linkedin.com/in/joel-perez-09159210a"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="rounded-lg border border-line bg-card px-5 py-2.5 text-sm font-semibold transition-colors hover:border-accent dark:border-line-dark dark:bg-card-dark dark:hover:border-accent-dark"
+    >
+      LinkedIn
+    </a>
+    <a
+      href="https://github.com/JoelJPerez"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="rounded-lg border border-line bg-card px-5 py-2.5 text-sm font-semibold transition-colors hover:border-accent dark:border-line-dark dark:bg-card-dark dark:hover:border-accent-dark"
+    >
+      GitHub
+    </a>
+    <a
+      href="/cv/Joel_Perez_CV.pdf"
+      download
+      class="rounded-lg border border-line bg-card px-5 py-2.5 text-sm font-semibold transition-colors hover:border-accent dark:border-line-dark dark:bg-card-dark dark:hover:border-accent-dark"
+    >
+      {t('contact.downloadCV')}
+    </a>
+  </div>
+</section>
+
+<footer class="border-t border-line dark:border-line-dark">
+  <div
+    class="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-2 px-5 py-6 font-mono text-xs text-muted dark:text-muted-dark"
+  >
+    <p>© {year} Joel Perez · {t('footer.location')}</p>
+    <p>{t('footer.builtWith')}</p>
+  </div>
+</footer>

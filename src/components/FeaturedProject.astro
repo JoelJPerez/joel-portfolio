@@ -1,0 +1,138 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { useTranslations, type Lang } from '../i18n/ui';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+  lang: Lang;
+}
+
+const { project, lang } = Astro.props;
+const t = useTranslations(lang);
+const { title, status, stack, github, demo, image } = project.data;
+const { tagline, challenge, solution, highlights } = project.data[lang];
+---
+
+<article
+  class="rounded-2xl border border-line bg-card p-6 transition-colors sm:p-8 dark:border-line-dark dark:bg-card-dark"
+>
+  {
+    image && (
+      <div class="mb-6 overflow-hidden rounded-xl border border-line dark:border-line-dark">
+        <img
+          src={image}
+          alt={`${title} — interface preview`}
+          width="1200"
+          height="750"
+          loading="lazy"
+          decoding="async"
+          class="aspect-[16/10] w-full object-cover"
+        />
+      </div>
+    )
+  }
+  <div class="grid gap-8 lg:grid-cols-[1fr_260px]">
+    <!-- Left: narrative -->
+    <div>
+      <div class="flex flex-wrap items-center gap-3">
+        <h3 class="font-display text-2xl font-bold tracking-tight">{title}</h3>
+        <span
+          class:list={[
+            'rounded-full px-2.5 py-0.5 font-mono text-[11px] font-medium uppercase tracking-wider',
+            status === 'shipped'
+              ? 'bg-accent-soft text-accent dark:bg-accent-soft-dark dark:text-accent-dark'
+              : 'border border-dashed border-accent/50 text-accent dark:border-accent-dark/50 dark:text-accent-dark',
+          ]}
+        >
+          {t(`projects.status.${status}`)}
+        </span>
+      </div>
+
+      <p class="mt-2 text-muted dark:text-muted-dark">{tagline}</p>
+
+      <dl class="mt-6 space-y-5">
+        <div>
+          <dt class="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-accent dark:text-accent-dark">
+            {t('projects.challenge')}
+          </dt>
+          <dd class="mt-1.5 text-sm leading-relaxed text-muted dark:text-muted-dark">
+            {challenge}
+          </dd>
+        </div>
+        <div>
+          <dt class="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-accent dark:text-accent-dark">
+            {t('projects.solution')}
+          </dt>
+          <dd class="mt-1.5 text-sm leading-relaxed text-muted dark:text-muted-dark">
+            {solution}
+          </dd>
+        </div>
+      </dl>
+    </div>
+
+    <!-- Right: spec sheet -->
+    <aside class="flex flex-col gap-6 border-line lg:border-l lg:pl-8 dark:border-line-dark">
+      <div>
+        <h4 class="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-accent dark:text-accent-dark">
+          {t('projects.stack')}
+        </h4>
+        <ul class="mt-2.5 flex flex-wrap gap-1.5">
+          {
+            stack.map((tech) => (
+              <li class="rounded-md border border-line px-2 py-1 font-mono text-xs text-muted dark:border-line-dark dark:text-muted-dark">
+                {tech}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      {
+        highlights.length > 0 && (
+          <div>
+            <h4 class="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-accent dark:text-accent-dark">
+              {t('projects.highlights')}
+            </h4>
+            <ul class="mt-2.5 space-y-2 text-xs leading-relaxed text-muted dark:text-muted-dark">
+              {highlights.map((h) => (
+                <li class="flex gap-2">
+                  <span class="mt-px text-accent dark:text-accent-dark" aria-hidden="true">
+                    →
+                  </span>
+                  {h}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )
+      }
+
+      <div class="mt-auto flex flex-wrap gap-2 pt-1">
+        {
+          github && (
+            <a
+              href={github}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="rounded-lg border border-line px-3.5 py-2 font-mono text-xs font-medium transition-colors hover:border-accent hover:text-accent dark:border-line-dark dark:hover:border-accent-dark dark:hover:text-accent-dark"
+            >
+              {t('projects.viewCode')}
+            </a>
+          )
+        }
+        {
+          demo && (
+            <a
+              href={demo}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="rounded-lg bg-accent px-3.5 py-2 font-mono text-xs font-medium text-white transition-opacity hover:opacity-90 dark:bg-accent-dark dark:text-paper-dark"
+            >
+              {t('projects.liveDemo')}
+            </a>
+          )
+        }
+      </div>
+    </aside>
+  </div>
+</article>

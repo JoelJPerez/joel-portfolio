@@ -1,0 +1,84 @@
+---
+import type { Lang } from '../i18n/ui';
+
+interface Props {
+  title: string;
+  description: string;
+  lang: Lang;
+}
+
+const { title, description, lang } = Astro.props;
+const site = Astro.site ?? Astro.url;
+const ogImage = new URL('/og-image.png', site);
+const enUrl = new URL('/', site);
+const esUrl = new URL('/es/', site);
+const canonical = lang === 'es' ? esUrl : enUrl;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="en" href={enUrl} />
+    <link rel="alternate" hreflang="es" href={esUrl} />
+    <link rel="alternate" hreflang="x-default" href={enUrl} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content={lang === 'es' ? 'es_CO' : 'en_US'} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Structured data -->
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Person',
+        name: 'Joel Perez',
+        jobTitle: 'Full-Stack Developer',
+        url: site.toString(),
+        email: 'mailto:joelstif00@gmail.com',
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Barranquilla',
+          addressCountry: 'CO',
+        },
+        sameAs: [
+          'https://github.com/JoelJPerez',
+          'https://www.linkedin.com/in/joel-perez-09159210a',
+        ],
+        knowsAbout: ['.NET', 'C#', 'React', 'Angular', 'TypeScript', 'SQL Server', 'PostgreSQL', 'AWS', 'Docker'],
+      })}
+    />
+
+    <!-- Apply saved theme before paint to avoid flash -->
+    <script is:inline>
+      const theme = localStorage.getItem('theme')
+        ?? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.classList.toggle('dark', theme === 'dark');
+    </script>
+  </head>
+  <body class="bg-paper text-ink antialiased dark:bg-paper-dark dark:text-ink-dark">
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  @import '../styles/global.css';
+</style>
