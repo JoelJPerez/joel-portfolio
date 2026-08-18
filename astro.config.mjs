@@ -5,7 +5,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://joeljperez.vercel.app', // TODO: update when custom domain is connected
+  site: 'https://joel-portfolio-rose.vercel.app/', // TODO: update when custom domain is connected
   integrations: [sitemap()],
   i18n: {
     defaultLocale: 'en',
